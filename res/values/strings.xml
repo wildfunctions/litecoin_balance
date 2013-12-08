@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Litecoin Balance</string>
+    <string name="balance">Balance</string>
+    <string name="zero_balance">0.00 LTC</string>
+    
+    <string name="addresses">Addresses</string>
+    <string name="no_addresses">Currently No Addresses</string>
+    <string name="address_remove">Remove Address</string>
+    <string name="action_settings">Settings</string>
+    
+    <string name="add_address">Add Address</string>
+    <string name="address_name">Title</string>
+    <string name="address">Address</string>
+    
+    <string name="bitcoin_donate">Bitcoin Donate</string>
+    <string name="bitcoin_address">1B2efQ6jikK7MnAGimZb77JgvCBVJQziLS</string>
+    <string name="litecoin_donate">Litecoin Donate</string>
+    <string name="litecoin_address">LM8DBiYEBjHkzgSGVDvwPe5oeVosnggx5a</string>
+    
+    <string name="litecoin_img_desc">Litecoin Image</string>
+
+</resources>

@@ -1,0 +1,27 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/action_settings"/>
+    
+    <item
+    android:id="@+id/menu_more"
+    android:icon="@drawable/three_dot_menu"
+    android:showAsAction="always"
+    android:title="Options">
+    <menu>
+        <item
+            android:id="@+id/menu_addresses"
+            android:title="Addresses"/>
+        <item
+            android:id="@+id/menu_donate"
+            android:title="Donate"/>
+        <item
+            android:id="@+id/menu_refresh"
+            android:title="Refresh"/>
+    </menu>
+</item>
+
+</menu>

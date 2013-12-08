@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <Button
+            android:id="@+id/button"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="32dp"
+            android:onClick="create"
+            android:text="@string/add_address" />
+
+        <EditText
+            android:id="@+id/address"
+            android:layout_width="345dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="57dp"
+            android:ems="10"
+            android:hint="@string/address"
+            android:textSize="16sp" >
+            <requestFocus />
+        </EditText>
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="345dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/address"
+            android:layout_marginTop="21dp"
+            android:ems="10"
+            android:hint="@string/address_name" >
+        </EditText>
+
+</RelativeLayout>
+
