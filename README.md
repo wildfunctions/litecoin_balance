@@ -1,6 +1,9 @@
 Litecoin Balance
 ================
 
+App is currently here:
+https://play.google.com/store/apps/details?id=com.coinhark.litecoinbalance&hl=en
+
 Android app that allows user to follow various Litecoin addresses.
 
 Though this application is not a wallet, it provides functionality other apps currently do not.
