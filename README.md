@@ -19,5 +19,7 @@ Desired Features:
 - Add Tablet Support
 
 I would like to thank the following API providers:
+
 http://explorer.litecoin.net/q
+
 http://litecoinscout.com/q
