@@ -1,23 +1,17 @@
 package com.coinhark.litecoinbalance;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import db.Address;
-import db.AddressDBHandler;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ProgressBar;
+import db.AddressDBHandler;
+import db.AddressSingleton;
 
 public class MainActivity extends Activity {
 	
     private ProgressBar mProgress;
-    
-    private String[] addresses;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,16 +21,13 @@ public class MainActivity extends Activity {
 		mProgress = (ProgressBar) findViewById(R.id.progress_bar);
 		
 		AddressDBHandler db = new AddressDBHandler(this);
-		List<Address> addressList = new ArrayList<Address>();
 	    db.open();
-		addressList = db.getAllAddresses();
+	    AddressSingleton singleton = AddressSingleton.getInstance();
+		singleton.addressList = db.getAllAddresses();
 		db.close();
-		addresses = new String[addressList.size()];
-		for(int i = 0; i < addressList.size(); i++) {
-			addresses[i] = addressList.get(i).getAddress();
-		}
-		if(addressList.size() > 0) {
-			new BalanceAsyncTask(this, mProgress, addresses).execute("");
+
+		if(singleton.addressList.size() > 0) {
+			new BalanceAsyncTask(this, mProgress).execute("");
 		} else {
 			setContentView(R.layout.main);
 		}

@@ -32,11 +32,11 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
   @Override
   public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-    Log.w(MySQLiteHelper.class.getName(),
-        "Upgrading database from version " + oldVersion + " to "
-            + newVersion + ", which will destroy all old data");
-    db.execSQL("DROP TABLE IF EXISTS " + TABLE_ADDRESSES);
-    onCreate(db);
+//    Log.w(MySQLiteHelper.class.getName(),
+//        "Upgrading database from version " + oldVersion + " to "
+//            + newVersion + ", which will destroy all old data");
+//    db.execSQL("DROP TABLE IF EXISTS " + TABLE_ADDRESSES);
+//    onCreate(db);
   }
 
 } 

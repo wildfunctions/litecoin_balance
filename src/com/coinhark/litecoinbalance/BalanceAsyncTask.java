@@ -4,6 +4,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import db.AddressSingleton;
+
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Handler;
@@ -13,27 +15,30 @@ import android.widget.TextView;
 
 public class BalanceAsyncTask extends AsyncTask<String, Void, String> {
 	
-    private int mProgressStatus = 10;
+    private int mProgressStatus = 10; // To ease user's anxiety while waiting
     private Handler mHandler = new Handler();
     
     private double balance = 0;
     private final ProgressBar progress;
     private final Activity parent;
-    private final String[] addresses;
     
-    public BalanceAsyncTask(final Activity parent, final ProgressBar progress, String[] addresses) {
+    private AddressSingleton singleton;
+    
+    public BalanceAsyncTask(final Activity parent, final ProgressBar progress) {
         this.parent = parent;
         this.progress = progress;
-        this.addresses = addresses;
     }
     
 	@Override
 	protected String doInBackground(String... addresses) {
-		
+		singleton = AddressSingleton.getInstance();
+		progress.setProgress(mProgressStatus);
     	int i = 0;
         while (mProgressStatus < 100) {
-        	balance += getBalance(this.addresses[i]); i++;
-            mProgressStatus += 100/this.addresses.length;
+        	double ithBalance = getBalance(singleton.addressList.get(i).getAddress());
+        	singleton.addressList.get(i).setBalance(ithBalance);
+        	balance += ithBalance; i++;
+            mProgressStatus += 100/singleton.addressList.size();
 
             // Update the progress bar
             mHandler.post(new Runnable() {

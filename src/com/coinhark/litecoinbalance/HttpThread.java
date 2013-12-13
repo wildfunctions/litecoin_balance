@@ -6,11 +6,12 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 import android.util.Log;
+import api.BalanceAPI;
 
 public class HttpThread implements Callable<Double> {
 
-	private String sentUrl = "http://explorer.litecoin.net/chain/Litecoin/q/getsentbyaddress/";
-	private String receivedUrl = "http://explorer.litecoin.net/chain/Litecoin/q/getreceivedbyaddress/";
+	private String sentUrl = BalanceAPI.getSentUrl();
+	private String receivedUrl = BalanceAPI.getReceivedUrl();
 	
 	private String address;
 	double balance = 0;

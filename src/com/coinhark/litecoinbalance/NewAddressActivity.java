@@ -33,7 +33,8 @@ public class NewAddressActivity extends Activity {
     		datasource.open();
     	    datasource.createAddress(name, address);
     	    datasource.close();
-    		Intent nextScreen = new Intent(getApplicationContext(), AddressesActivity.class);
+
+    		Intent nextScreen = new Intent(getApplicationContext(), MainActivity.class);
     		startActivity(nextScreen);
         }
 	}

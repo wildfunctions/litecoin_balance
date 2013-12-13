@@ -48,6 +48,11 @@ public class AddressDBHandler {
     return newAddress;
   }
 
+  public void deleteAll() {
+	  Log.d("[Litecoin Balance]", "Delete ALL DATA!!");
+	  database.delete(MySQLiteHelper.TABLE_ADDRESSES, MySQLiteHelper.COLUMN_ID + " > 0 ", null);
+  }
+  
   public void deleteAddress(Address address) {
     long id = address.getId();
     Log.d("[Litecoin Balance]", "Address deleted with id: " + id);

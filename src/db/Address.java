@@ -8,6 +8,7 @@ public class Address {
 	  private long id;
 	  private String name;
 	  private String address;
+	  private double balance = 0;
 
 	  public long getId() {
 		  return id;
@@ -31,6 +32,14 @@ public class Address {
 
 	  public void setAddress(String address) {
 		  this.address = address;
+	  }
+	  
+	  public double getBalance() {
+		  return balance;
+	  }
+
+	  public void setBalance(double balance) {
+		  this.balance = balance;
 	  }
 	  
 	  // Will be used by the ArrayAdapter in the ListView

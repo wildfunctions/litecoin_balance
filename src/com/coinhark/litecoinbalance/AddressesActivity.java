@@ -11,9 +11,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.ArrayAdapter;
 import db.Address;
 import db.AddressDBHandler;
+import db.AddressSingleton;
 
 public class AddressesActivity extends ListActivity {
 	
@@ -28,11 +28,11 @@ public class AddressesActivity extends ListActivity {
 		
 		AddressDBHandler datasource = new AddressDBHandler(this);
 	    datasource.open();
-	    
-	    addressList = datasource.getAllAddresses();
-	    ArrayAdapter<Address> adapter = new ArrayAdapter<Address>(this,
-	        android.R.layout.simple_list_item_1, addressList);
+
+	    addressList = AddressSingleton.getInstance().addressList;
+	    MyAdapter adapter = new MyAdapter(this, R.layout.list, addressList);
 	    setListAdapter(adapter);
+	    
 	    datasource.close();
 	    
 	    registerForContextMenu(getListView());
@@ -61,7 +61,8 @@ public class AddressesActivity extends ListActivity {
 	    		db.open();
 	    		db.deleteAddressById(addressList.get((int) info.id).getId());
 	    		db.close();
-	    		Intent nextScreen = new Intent(getApplicationContext(), AddressesActivity.class);
+	    	    
+	    		Intent nextScreen = new Intent(getApplicationContext(), MainActivity.class);
 	    		startActivity(nextScreen);
 	    	return true;
 	    }
