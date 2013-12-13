@@ -20,3 +20,5 @@ Desired Features:
 
 I would like to thank Someguy123 for the advice and management of the following API:
 http://explorer.litecoin.net/q
+
+and litecoinscout for the following API: http://litecoinscout.com/q
