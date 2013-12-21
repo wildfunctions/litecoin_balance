@@ -5,14 +5,10 @@ import java.util.Random;
 public class BalanceAPI {
 
 	private static String[] sentUrls = {
-		"http://litecoinscout.com/chain/Litecoin/q/getsentbyaddress/",
-		"http://explorer.litecoin.net/chain/Litecoin/q/getsentbyaddress/",
 		"http://litecoinscout.com/chain/Litecoin/q/getsentbyaddress/"
 	};
 	
 	private static String[] receivedUrls = {
-		"http://litecoinscout.com/chain/Litecoin/q/getreceivedbyaddress/",
-		"http://explorer.litecoin.net/chain/Litecoin/q/getreceivedbyaddress/",
 		"http://litecoinscout.com/chain/Litecoin/q/getreceivedbyaddress/"
 	};
 
