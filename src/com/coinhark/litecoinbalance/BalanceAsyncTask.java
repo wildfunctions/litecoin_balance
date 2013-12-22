@@ -4,7 +4,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import db.AddressSingleton;
+import com.coinhark.litecoinbalance.api.CurrencyEnum;
+import com.coinhark.litecoinbalance.db.UserSingleton;
+import com.coinhark.litecoinbalance.utils.MathUtils;
+
 
 import android.app.Activity;
 import android.os.AsyncTask;
@@ -22,7 +25,7 @@ public class BalanceAsyncTask extends AsyncTask<String, Void, String> {
     private final ProgressBar progress;
     private final Activity parent;
     
-    private AddressSingleton singleton;
+    private UserSingleton singleton;
     
     public BalanceAsyncTask(final Activity parent, final ProgressBar progress) {
         this.parent = parent;
@@ -31,7 +34,13 @@ public class BalanceAsyncTask extends AsyncTask<String, Void, String> {
     
 	@Override
 	protected String doInBackground(String... addresses) {
-		singleton = AddressSingleton.getInstance();
+		this.singleton = UserSingleton.getInstance(); //Very important to get instance here vs constructor
+		double rate = getRate(singleton.currency);
+		if(rate > 0) {
+			singleton.rate = MathUtils.trimFiat(rate);
+		}
+		//Log.e("[Litecoin Balance]", rate + "");
+
 		progress.setProgress(mProgressStatus);
     	int i = 0;
         while (mProgressStatus < 100) {
@@ -53,18 +62,22 @@ public class BalanceAsyncTask extends AsyncTask<String, Void, String> {
 	
     @Override public void onPostExecute(String result) {
     	this.parent.setContentView(R.layout.main);
-        TextView t = new TextView(parent); 
-
-        t = (TextView) this.parent.findViewById(R.id.textView2); 
-        t.setText(this.balance + " LTC");
+        TextView t1 = new TextView(parent); 
+        TextView t2 = new TextView(parent); 
+        
+        t1 = (TextView) this.parent.findViewById(R.id.textView2); 
+        t1.setText(MathUtils.trimCrypto(this.balance) + " LTC");
+        
+        t2 = (TextView) this.parent.findViewById(R.id.textView3); 
+        t2.setText(MathUtils.trimFiat(this.balance * singleton.rate) + " " + CurrencyEnum.getString(singleton.currency));
     }
 	
 	public double getBalance(String address) {
         final ExecutorService service;
-        final Future<Double>  task;
+        final Future<Double> task;
 
         service = Executors.newFixedThreadPool(1);        
-        task = service.submit(new HttpThread(address));
+        task = service.submit(new HttpBalanceThread(address));
         Double ret = null;
         try {
             ret = task.get();
@@ -74,6 +87,23 @@ public class BalanceAsyncTask extends AsyncTask<String, Void, String> {
         }
         if(ret < 0) {
         	return 0.00;
+        }
+        return ret;
+	}
+	
+	//Pass in currency value in User table
+	public double getRate(int currency) {
+        final ExecutorService service;
+        final Future<Double> task;
+
+        service = Executors.newFixedThreadPool(1);        
+        task = service.submit(new HttpExchangeThread(currency));
+        Double ret = null;
+        try {
+            ret = task.get();
+        } catch(Exception e) {
+        	Log.e("[Litecoin Balance]", e.toString());
+        	e.printStackTrace();
         }
         return ret;
 	}

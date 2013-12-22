@@ -1,13 +1,19 @@
 package com.coinhark.litecoinbalance;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ProgressBar;
-import db.AddressDBHandler;
-import db.AddressSingleton;
+
+import com.coinhark.litecoinbalance.db.AddressDBHandler;
+import com.coinhark.litecoinbalance.db.User;
+import com.coinhark.litecoinbalance.db.UserDBHandler;
+import com.coinhark.litecoinbalance.db.UserSingleton;
 
 public class MainActivity extends Activity {
 	
@@ -17,12 +23,21 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.progress);
+		UserSingleton singleton = UserSingleton.getInstance();
+		
+		UserDBHandler userDB = new UserDBHandler(this);
+		userDB.open();
+		List<User> users = userDB.getAllUsers();
+		userDB.close();
+		if(users.size() > 0) {
+			singleton.currency = 0;
+			Log.w("[Litecoin Balance]", users.size() + " Get User Info!");
+		}
 		
 		mProgress = (ProgressBar) findViewById(R.id.progress_bar);
 		
 		AddressDBHandler db = new AddressDBHandler(this);
 	    db.open();
-	    AddressSingleton singleton = AddressSingleton.getInstance();
 		singleton.addressList = db.getAllAddresses();
 		db.close();
 

@@ -4,6 +4,7 @@
     <string name="app_name">Litecoin Balance</string>
     <string name="balance">Balance</string>
     <string name="zero_balance">0.00 LTC</string>
+    <string name="zero_usd">0.00 USD</string>
     
     <string name="addresses">Addresses</string>
     <string name="no_addresses">Currently No Addresses</string>

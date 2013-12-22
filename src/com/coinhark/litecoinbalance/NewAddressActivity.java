@@ -6,7 +6,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import db.AddressDBHandler;
+import android.widget.TextView;
+
+import com.coinhark.litecoinbalance.db.AddressDBHandler;
+import com.coinhark.litecoinbalance.utils.AddressChecker;
 
 public class NewAddressActivity extends Activity {
 
@@ -21,13 +24,16 @@ public class NewAddressActivity extends Activity {
 		View addressView = this.findViewById(R.id.address);
 		String name = ((EditText) nameView).getText().toString();
 		String address = ((EditText) addressView).getText().toString();
-		
-		HttpThread http = new HttpThread(address);
-		double balance = http.getBalance();
-		Log.d("[Litecoin Balance]", balance + " <--- Balance");
-		
-        if(balance < 0 || "".equals(address)) {
-        	Log.d("[Litecoin Balance]", "Empty");
+		if("".equals(name)) {
+			name = "Balance";
+		}
+		AddressChecker ac = new AddressChecker();
+        if(!ac.run(address)) {
+        	Log.d("[Litecoin Balance]", "Invalid Address!");
+        	
+            TextView t = new TextView(this); 
+            t = (TextView) this.findViewById(R.id.address_error); 
+        	t.setText("Invalid Address!");
         } else {
         	AddressDBHandler datasource = new AddressDBHandler(this);
     		datasource.open();

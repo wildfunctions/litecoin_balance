@@ -2,6 +2,10 @@ package com.coinhark.litecoinbalance;
 
 import java.util.List;
 
+import com.coinhark.litecoinbalance.db.Address;
+import com.coinhark.litecoinbalance.db.AddressDBHandler;
+import com.coinhark.litecoinbalance.db.UserSingleton;
+
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,9 +15,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import db.Address;
-import db.AddressDBHandler;
-import db.AddressSingleton;
 
 public class AddressesActivity extends ListActivity {
 	
@@ -29,7 +30,7 @@ public class AddressesActivity extends ListActivity {
 		AddressDBHandler datasource = new AddressDBHandler(this);
 	    datasource.open();
 
-	    addressList = AddressSingleton.getInstance().addressList;
+	    addressList = UserSingleton.getInstance().addressList;
 	    MyAdapter adapter = new MyAdapter(this, R.layout.list, addressList);
 	    setListAdapter(adapter);
 	    
