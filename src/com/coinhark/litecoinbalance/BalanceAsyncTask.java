@@ -85,8 +85,11 @@ public class BalanceAsyncTask extends AsyncTask<String, Void, String> {
         	Log.e("[Litecoin Balance]", e.toString());
         	e.printStackTrace();
         }
+        if(ret == null) {
+        	return 0;
+        }
         if(ret < 0) {
-        	return 0.00;
+        	return 0;
         }
         return ret;
 	}
@@ -104,6 +107,9 @@ public class BalanceAsyncTask extends AsyncTask<String, Void, String> {
         } catch(Exception e) {
         	Log.e("[Litecoin Balance]", e.toString());
         	e.printStackTrace();
+        }
+        if(ret == null) {
+        	return 0;
         }
         return ret;
 	}

@@ -12,18 +12,6 @@ public enum CurrencyEnum {
 		this.value = value;
 	}
 	
-	public static String getPostParam(int value) {
-		switch(value) {
-		case 0:
-			return "LTC/USD";
-		case 1:
-			return "LTC/EUR";
-		case 2:
-			return "LTC/BTC";
-		}
-		return "USD/LTC";
-	}
-	
 	public static String getString(int value) {
 		switch(value) {
 		case 0:

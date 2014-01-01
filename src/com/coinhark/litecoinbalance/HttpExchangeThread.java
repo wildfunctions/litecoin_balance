@@ -2,11 +2,11 @@ package com.coinhark.litecoinbalance;
 
 import java.util.concurrent.Callable;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.coinhark.litecoinbalance.api.BalanceAPI;
-import com.coinhark.litecoinbalance.api.CurrencyEnum;
 import com.coinhark.litecoinbalance.utils.MathUtils;
 
 public class HttpExchangeThread implements Callable<Double> {
@@ -21,15 +21,19 @@ public class HttpExchangeThread implements Callable<Double> {
        		HttpURLConnecter http = new HttpURLConnecter();
        		String rate = null;
        		double rateDouble = 0;
-	        JSONObject obj = new JSONObject();
 	        try {
-				obj.put("pair", CurrencyEnum.getPostParam(currency));
-		        rate = http.sendGet(BalanceAPI.getRateUrl(0) + CurrencyEnum.getString(currency));
+		        rate = http.sendGet(BalanceAPI.getRateUrl(0) + BalanceAPI.getKrakenParam(currency));
 		        //Log.d("[Litecoin Balance]", rate);
 		        JSONObject json = new JSONObject(rate);
-		        rateDouble = json.getDouble("value");
-		        if(!MathUtils.isNumeric(rateDouble + "")) {
+		        json = json.getJSONObject("result");
+		        json = json.getJSONObject(BalanceAPI.getKrakenReturnParam(currency));
+		        
+		        JSONArray jsonArray = json.getJSONArray("b");
+		        String rateString = jsonArray.getString(0);
+		        if(!MathUtils.isNumeric(rateString)) {
 		        	rateDouble = 0;
+		        } else {
+			        rateDouble = Double.parseDouble(jsonArray.getString(0));
 		        }
 			} catch (JSONException e) {
 				e.printStackTrace();
