@@ -16,9 +16,9 @@ public class HttpBalanceThread implements Callable<Double> {
 	private String receivedUrl = BalanceAPI.getReceivedUrl();
 	
 	private String address;
-	double balance = 0;
-	double receivedBalance = 0;
-	double sentBalance = 0;
+	double balance = 0d;
+	double receivedBalance = 0d;
+	double sentBalance = 0d;
 	
 	   public HttpBalanceThread(String address) {
 	       this.address = address;
@@ -30,7 +30,7 @@ public class HttpBalanceThread implements Callable<Double> {
        		try {
        			sentAmount = http.sendGet(sentUrl + address);
        			if(!MathUtils.isNumeric(sentAmount)) {
-       				return -1.00;
+       				return -1d;
        			}
        		} catch (Exception e) {
        			//e.printStackTrace();
@@ -39,7 +39,7 @@ public class HttpBalanceThread implements Callable<Double> {
        		try {
        			receivedAmount = http.sendGet(receivedUrl + address);
        			if(!MathUtils.isNumeric(receivedAmount)) {
-       				return -1.00;
+       				return -1d;
        			}
        		} catch (Exception e) {
        			//e.printStackTrace();
@@ -47,7 +47,7 @@ public class HttpBalanceThread implements Callable<Double> {
        		
        		balance = Double.parseDouble(receivedAmount) - Double.parseDouble(sentAmount);
        		if(balance < 0) {
-       			return 0.00;
+       			return 0d;
        		}
        		return balance;
 	   }

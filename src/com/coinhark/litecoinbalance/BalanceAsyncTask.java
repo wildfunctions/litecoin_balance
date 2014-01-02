@@ -18,10 +18,11 @@ import android.widget.TextView;
 
 public class BalanceAsyncTask extends AsyncTask<String, Void, String> {
 	
-    private int mProgressStatus = 10; // To ease user's anxiety while waiting
+	private double initProgressStatus = 10d;
+    private double progressStatus = initProgressStatus;
     private Handler mHandler = new Handler();
     
-    private double balance = 0;
+    private double balance = 0d;
     private final ProgressBar progress;
     private final Activity parent;
     
@@ -41,18 +42,18 @@ public class BalanceAsyncTask extends AsyncTask<String, Void, String> {
 		}
 		//Log.e("[Litecoin Balance]", rate + "");
 
-		progress.setProgress(mProgressStatus);
+		progress.setProgress((int) progressStatus);
     	int i = 0;
-        while (mProgressStatus < 100) {
+        while (progressStatus < 100) {
         	double ithBalance = getBalance(singleton.addressList.get(i).getAddress());
         	singleton.addressList.get(i).setBalance(ithBalance);
         	balance += ithBalance; i++;
-            mProgressStatus += 100/singleton.addressList.size();
-
+        	
+            progressStatus += (100d - initProgressStatus)/singleton.addressList.size();
             // Update the progress bar
             mHandler.post(new Runnable() {
                 public void run() {
-                	progress.setProgress(mProgressStatus);
+                	progress.setProgress((int) progressStatus);
                 }
             });
         }
@@ -85,11 +86,13 @@ public class BalanceAsyncTask extends AsyncTask<String, Void, String> {
         	Log.e("[Litecoin Balance]", e.toString());
         	e.printStackTrace();
         }
+        service.shutdown();
+        task.cancel(true);
         if(ret == null) {
-        	return 0;
+        	return 0d;
         }
         if(ret < 0) {
-        	return 0;
+        	return 0d;
         }
         return ret;
 	}
@@ -109,7 +112,7 @@ public class BalanceAsyncTask extends AsyncTask<String, Void, String> {
         	e.printStackTrace();
         }
         if(ret == null) {
-        	return 0;
+        	return 0d;
         }
         return ret;
 	}

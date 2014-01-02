@@ -20,7 +20,7 @@ public class HttpExchangeThread implements Callable<Double> {
 	   public Double call() {
        		HttpURLConnecter http = new HttpURLConnecter();
        		String rate = null;
-       		double rateDouble = 0;
+       		double rateDouble = 0d;
 	        try {
 		        rate = http.sendGet(BalanceAPI.getRateUrl(0) + BalanceAPI.getKrakenParam(currency));
 		        //Log.d("[Litecoin Balance]", rate);
@@ -31,7 +31,7 @@ public class HttpExchangeThread implements Callable<Double> {
 		        JSONArray jsonArray = json.getJSONArray("b");
 		        String rateString = jsonArray.getString(0);
 		        if(!MathUtils.isNumeric(rateString)) {
-		        	rateDouble = 0;
+		        	rateDouble = 0d;
 		        } else {
 			        rateDouble = Double.parseDouble(jsonArray.getString(0));
 		        }
@@ -41,11 +41,11 @@ public class HttpExchangeThread implements Callable<Double> {
 				e.printStackTrace();
 			}
 	        if(rate == null) {
-	        	return 0.00;
+	        	return 0d;
 	        }
 	        
        		if(rateDouble < 0) {
-       			return 0.00;
+       			return 0d;
        		}
        		return rateDouble;
 	   }
