@@ -1,0 +1,29 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        config {
+            keyAlias 'tyrick'
+            keyPassword 'ycf0r3v3r!!!'
+            storeFile file('/home/tyrick/Downloads/litecoin-balance.keystore')
+            storePassword 'ycf0r3v3r!!!'
+        }
+    }
+    compileSdkVersion 19
+    buildToolsVersion "27.0.3"
+    defaultConfig {
+        applicationId "com.coinhark.litecoinbalance"
+        minSdkVersion 8
+        targetSdkVersion 18
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}
+
+dependencies {
+    compile 'com.android.support:support-v4:19.1.0'
+}

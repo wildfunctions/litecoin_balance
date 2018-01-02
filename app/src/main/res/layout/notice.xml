@@ -1,0 +1,85 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:id="@+id/notice"
+    android:layout_height="wrap_content"
+    android:background="@drawable/noticeborder"
+    android:layout_margin="30dp"
+    android:layout_gravity="center_horizontal"
+
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Update Notice"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_gravity="center_horizontal"
+        android:text="After years of neglect, updates are coming! I apologize for not improving this app over the years--especially since LTC has EXPLODED lately." />
+
+    <TextView
+        android:id="@+id/textView2.5"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="In this update, I swapped out the old third-party APIs from kraken and litecoin.net, in favor of more stable sources (basically expect fewer crashes)." />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textIsSelectable="true"
+        android:text="For more information, visit www.coinhark.com" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="*IMPORTANT* You will need to re-add your addresses as next update will not migrate addresses unfortunately." />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_gravity="center_horizontal"
+        android:text="But be positive.  The next update will include a QR scanner and a design that isn't so bare ;)" />
+
+    <Button
+        android:id="@+id/close"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_height="wrap_content"
+        android:text="Uhh..Okay" />
+
+</LinearLayout>

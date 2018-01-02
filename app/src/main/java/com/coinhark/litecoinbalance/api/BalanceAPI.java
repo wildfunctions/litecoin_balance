@@ -4,6 +4,10 @@ import java.util.Random;
 
 public class BalanceAPI {
 
+	private static String[] addressInfoUrls = {
+		"https://www.coinhark.com:3001/insight-lite-api/addr/"
+	};
+
 	private static String[] sentUrls = {
 		//"http://litecoinscout.com/chain/Litecoin/q/getsentbyaddress/"
 		"http://explorer.litecoin.net/chain/Litecoin/q/getsentbyaddress/"
@@ -15,8 +19,8 @@ public class BalanceAPI {
 	};
 	
 	private static String[] rateUrls = {
-		"https://api.kraken.com/0/public/Ticker?pair=",
-		"https://vircurex.com/api/get_last_trade.json?base=LTC&alt="
+		"https://api.coinmarketcap.com/v1/ticker/litecoin/"
+		//"https://api.kraken.com/0/public/Ticker?pair=",
 		//https://api.kraken.com/0/public/Ticker?pair=LTCUSD
 		//https://api.kraken.com/0/public/Ticker?pair=LTCEUR
 		//https://api.kraken.com/0/public/Ticker?pair=LTCKRW
@@ -29,8 +33,12 @@ public class BalanceAPI {
 	
 	public static String getReceivedUrl() {
 		return receivedUrls[getRandom(0, receivedUrls.length - 1)];
-	}	
-	
+	}
+
+	public static String getInfoUrl() {
+		return addressInfoUrls[getRandom(0, addressInfoUrls.length - 1)];
+	}
+
 	public static int getRandom(int min, int max) {
 		return new Random().nextInt(max - min + 1) + min;
 	}

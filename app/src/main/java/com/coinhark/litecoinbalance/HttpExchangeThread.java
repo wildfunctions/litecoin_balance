@@ -19,28 +19,29 @@ public class HttpExchangeThread implements Callable<Double> {
 
 	   public Double call() {
        		HttpURLConnecter http = new HttpURLConnecter();
-       		String rate = null;
+       		String ret = null;
+       		String priceStr = null;
        		double rateDouble = 0d;
 	        try {
-		        rate = http.sendGet(BalanceAPI.getRateUrl(0) + BalanceAPI.getKrakenParam(currency));
+		        ret = http.sendGet(BalanceAPI.getRateUrl(0));
 		        //Log.d("[Litecoin Balance]", rate);
-		        JSONObject json = new JSONObject(rate);
-		        json = json.getJSONObject("result");
-		        json = json.getJSONObject(BalanceAPI.getKrakenReturnParam(currency));
-		        
-		        JSONArray jsonArray = json.getJSONArray("b");
-		        String rateString = jsonArray.getString(0);
-		        if(!MathUtils.isNumeric(rateString)) {
+		        JSONArray jsonArr = new JSONArray(ret);
+
+		        JSONObject jsonObj = jsonArr.getJSONObject(0);
+				priceStr = jsonObj.getString("price_usd");
+
+		        if(!MathUtils.isNumeric(priceStr)) {
 		        	rateDouble = 0d;
 		        } else {
-			        rateDouble = Double.parseDouble(jsonArray.getString(0));
+			        rateDouble = Double.parseDouble(priceStr);
 		        }
 			} catch (JSONException e) {
-				e.printStackTrace();
+				//e.printStackTrace();
 			} catch (Exception e) {
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
-	        if(rate == null) {
+
+	        if(ret == null) {
 	        	return 0d;
 	        }
 	        

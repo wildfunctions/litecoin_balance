@@ -25,3 +25,6 @@ tmp/**/*
 local.properties
 .settings/
 .loadpath
+
+# gradle
+build

@@ -21,8 +21,11 @@ public class HttpURLConnecter {
  
 	public static void main(String[] args) throws Exception {
 		HttpURLConnecter http = new HttpURLConnecter();
-		Log.d("[Litecoin Balance]", "Testing 1 - Send Http GET request");
-		http.sendGet("http://explorer.litecoin.net/chain/Litecoin/q/getsentbyaddress/LM8DBiYEBjHkzgSGVDvwPe5oeVosnggx5a");
+		//Log.d("[Litecoin Balance]", "Testing 1 - Send Http GET request");
+		//String ret = http.sendGet("http://explorer.litecoin.net/chain/Litecoin/q/getsentbyaddress/LM8DBiYEBjHkzgSGVDvwPe5oeVosnggx5a");
+		//String ret = http.sendGet("https://www.coinhark.com:3001/insight-lite-api/addr/LM8DBiYEBjHkzgSGVDvwPe5oeVosnggx5a");
+		String ret = http.sendGet("https://api.coinmarketcap.com/v1/ticker/litecoin/");
+		//System.out.println(ret);
 	}
  
 	// HTTP GET request
@@ -87,7 +90,8 @@ public class HttpURLConnecter {
             return result.toString();
             
         }catch (Exception ex) {
-        	Log.e("[Litecoin Balance]", ex.toString());
+        	//Log.e("[Litecoin Balance]", ex.toString());
+			//System.out.println(ex.toString());
         } finally {
             httpClient.getConnectionManager().shutdown();
         }

@@ -10,10 +10,13 @@ import com.coinhark.litecoinbalance.utils.MathUtils;
 
 import android.util.Log;
 
+import org.json.JSONObject;
+
 public class HttpBalanceThread implements Callable<Double> {
 
 	private String sentUrl = BalanceAPI.getSentUrl();
 	private String receivedUrl = BalanceAPI.getReceivedUrl();
+	private String infoUrl = BalanceAPI.getInfoUrl();
 	
 	private String address;
 	double balance = 0d;
@@ -27,25 +30,16 @@ public class HttpBalanceThread implements Callable<Double> {
 	   public Double call() {
        		HttpURLConnecter http = new HttpURLConnecter();
        		String sentAmount = null;
+       		Double balance = -1d;
+       		String ret = null;
        		try {
-       			sentAmount = http.sendGet(sentUrl + address);
-       			if(!MathUtils.isNumeric(sentAmount)) {
-       				return -1d;
-       			}
+       			ret = http.sendGet(infoUrl + address);
+				JSONObject json = new JSONObject(ret);
+				balance = json.getDouble("balance");
        		} catch (Exception e) {
        			//e.printStackTrace();
        		}
-       		String receivedAmount = null;
-       		try {
-       			receivedAmount = http.sendGet(receivedUrl + address);
-       			if(!MathUtils.isNumeric(receivedAmount)) {
-       				return -1d;
-       			}
-       		} catch (Exception e) {
-       			//e.printStackTrace();
-       		}
-       		
-       		balance = Double.parseDouble(receivedAmount) - Double.parseDouble(sentAmount);
+
        		if(balance < 0) {
        			return 0d;
        		}
@@ -62,8 +56,8 @@ public class HttpBalanceThread implements Callable<Double> {
 	        try {
 	            ret = task.get();
 	        } catch(Exception e) {
-	        	Log.e("[Litecoin Balance]", e.toString());
-	        	e.printStackTrace();
+	        	//Log.e("[Litecoin Balance]", e.toString());
+	        	//e.printStackTrace();
 	        }
 	        return ret;
 		}
